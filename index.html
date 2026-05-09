@@ -1,89 +1,157 @@
-export default function MothersDayApp() { const surprises = [ { image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=800", message: "Thanks for supporting me every single day ❤️", }, { image: "https://images.unsplash.com/photo-1511988617509-a57c8a288659?q=80&w=800", message: "Our little trips are my favorite memories 🌸", }, { image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=800", message: "You are my biggest strength 💖", }, { image: "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?q=80&w=800", message: "Happy Mother's Day to the best mom ever 🌷", }, { image: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?q=80&w=800", message: "Love you forever mom ✨", }, ];
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mother's Day Surprise</title>
 
-const balloonColors = [ "bg-pink-500", "bg-purple-500", "bg-orange-500", "bg-blue-500", "bg-green-500", ];
+  <script src="https://cdn.tailwindcss.com"></script>
 
-const [poppedIndex, setPoppedIndex] = React.useState(null); const [used, setUsed] = React.useState([]);
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(to bottom, #ffe4e6, #fff1f2);
+      font-family: sans-serif;
+    }
 
-const popBalloon = (index) => { if (used.includes(index)) return;
+    .container {
+      width: 320px;
+      background: white;
+      border-radius: 30px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
 
-setPoppedIndex(index);
-setUsed((prev) => [...prev, index]);
+    .balloons {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      margin-top: 30px;
+    }
 
-};
+    .balloon {
+      width: 70px;
+      height: 90px;
+      border-radius: 50%;
+      cursor: pointer;
+      position: relative;
+      animation: float 2s infinite ease-in-out;
+    }
 
-const nextBalloon = () => { setPoppedIndex(null); };
+    .balloon::after {
+      content: '';
+      width: 2px;
+      height: 60px;
+      background: gray;
+      position: absolute;
+      left: 50%;
+      top: 90px;
+    }
 
-return ( <div className="min-h-screen bg-gradient-to-b from-pink-100 via-rose-50 to-pink-200 flex items-center justify-center p-4 overflow-hidden"> <div className="w-full max-w-sm bg-white/70 backdrop-blur-xl rounded-[36px] shadow-2xl border border-white/50 overflow-hidden"> <div className="px-6 pt-8 pb-5 text-center"> <h1 className="text-4xl font-serif text-rose-700"> Happy Mother's Day 💐 </h1> <p className="text-rose-500 mt-3 text-sm leading-relaxed"> Pop the balloons and reveal sweet memories and messages for mom. </p> </div>
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
 
-{poppedIndex === null ? (
-      <div className="px-4 pb-10">
-        <div className="grid grid-cols-3 gap-y-12 gap-x-5 justify-items-center mt-8">
-          {surprises.map((item, index) => (
-            <button
-              key={index}
-              onClick={() => popBalloon(index)}
-              className="relative group transition-transform duration-300 hover:scale-110"
-            >
-              <div
-                className={`w-20 h-24 rounded-full ${balloonColors[index]} shadow-lg relative animate-bounce`}
-                style={{ animationDuration: `${2 + index * 0.3}s` }}
-              >
-                <div className="absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-3 h-3 bg-inherit rotate-45" />
-              </div>
+    .hidden {
+      display: none;
+    }
 
-              <div className="w-[2px] h-24 bg-gray-400 mx-auto" />
+    img {
+      width: 100%;
+      border-radius: 20px;
+      margin-top: 20px;
+    }
 
-              <div className="absolute inset-0 rounded-full bg-white/30 opacity-0 group-hover:opacity-100 transition" />
-            </button>
-          ))}
-        </div>
-      </div>
-    ) : (
-      <div className="px-6 pb-10 flex flex-col items-center">
-        <div className="relative mt-4 animate-[fadeIn_0.5s_ease]">
-          <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-14 h-4 bg-yellow-200 rounded-sm rotate-2 z-20 shadow" />
+    button {
+      margin-top: 20px;
+      background: #f43f5e;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+  </style>
+</head>
 
-          <div className="bg-white p-3 rounded-sm shadow-2xl rotate-[-2deg] border border-gray-100 max-w-[280px]">
-            <img
-              src={surprises[poppedIndex].image}
-              alt="memory"
-              className="w-full h-80 object-cover rounded-sm"
-            />
+<body>
 
-            <div className="text-center mt-4 px-2 pb-2">
-              <p className="text-gray-700 italic text-base font-serif leading-relaxed">
-                {surprises[poppedIndex].message}
-              </p>
+<div class="container">
 
-              <p className="text-xs tracking-[3px] text-rose-400 uppercase mt-3">
-                With Love From You ❤️
-              </p>
-            </div>
-          </div>
-        </div>
+  <h1 style="color:#be123c;">Happy Mother's Day 💐</h1>
 
-        <button
-          onClick={nextBalloon}
-          className="mt-8 bg-gradient-to-r from-pink-500 to-rose-500 text-white px-8 py-4 rounded-full font-medium tracking-wide shadow-lg hover:scale-105 transition"
-        >
-          Pop Another Balloon 🎈
-        </button>
-      </div>
-    )}
+  <div id="balloonScreen">
+
+    <p>Pop a balloon for a surprise 🎈</p>
+
+    <div class="balloons">
+
+      <div class="balloon bg-pink-500" onclick="showCard(0)"></div>
+      <div class="balloon bg-purple-500" onclick="showCard(1)"></div>
+      <div class="balloon bg-orange-500" onclick="showCard(2)"></div>
+
+    </div>
   </div>
 
-  <style>{`
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-  `}</style>
+  <div id="cardScreen" class="hidden">
+
+    <img id="photo" src="" />
+
+    <p id="message"></p>
+
+    <button onclick="back()">Pop Another Balloon</button>
+
+  </div>
+
 </div>
 
-); }
+<script>
+
+const surprises = [
+
+{
+image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=800",
+message: "Thanks for supporting me every day ❤️"
+},
+
+{
+image: "https://images.unsplash.com/photo-1511988617509-a57c8a288659?q=80&w=800",
+message: "You are my biggest strength 💖"
+},
+
+{
+image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=800",
+message: "Love you forever mom 🌸"
+}
+
+];
+
+function showCard(index) {
+
+document.getElementById("balloonScreen").classList.add("hidden");
+
+document.getElementById("cardScreen").classList.remove("hidden");
+
+document.getElementById("photo").src = surprises[index].image;
+
+document.getElementById("message").innerText = surprises[index].message;
+
+}
+
+function back() {
+
+document.getElementById("cardScreen").classList.add("hidden");
+
+document.getElementById("balloonScreen").classList.remove("hidden");
+
+}
+
+</script>
+
+</body>
+</html>

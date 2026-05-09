@@ -1,112 +1,166 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Mother's Day Surprise</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <script src="https://cdn.tailwindcss.com"></script>
+<title>Mother's Day Balloon Surprise</title>
 
-  <style>
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: linear-gradient(to bottom, #ffe4e6, #fff1f2);
-      font-family: sans-serif;
-    }
+<script src="https://cdn.tailwindcss.com"></script>
 
-    .container {
-      width: 320px;
-      background: white;
-      border-radius: 30px;
-      padding: 20px;
-      text-align: center;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    }
+<style>
 
-    .balloons {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 30px;
-      margin-top: 30px;
-    }
+body{
+margin:0;
+overflow:hidden;
+font-family:sans-serif;
+background:linear-gradient(to bottom,#ffe4e6,#fff1f2);
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+}
 
-    .balloon {
-      width: 70px;
-      height: 90px;
-      border-radius: 50%;
-      cursor: pointer;
-      position: relative;
-      animation: float 2s infinite ease-in-out;
-    }
+.container{
+width:340px;
+height:620px;
+background:white;
+border-radius:35px;
+position:relative;
+overflow:hidden;
+box-shadow:0 10px 30px rgba(0,0,0,0.15);
+}
 
-    .balloon::after {
-      content: '';
-      width: 2px;
-      height: 60px;
-      background: gray;
-      position: absolute;
-      left: 50%;
-      top: 90px;
-    }
+.title{
+text-align:center;
+padding-top:25px;
+color:#be123c;
+font-size:32px;
+font-weight:bold;
+}
 
-    @keyframes float {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
-      100% { transform: translateY(0px); }
-    }
+.subtitle{
+text-align:center;
+color:#e11d48;
+font-size:14px;
+padding:0 20px;
+margin-top:10px;
+}
 
-    .hidden {
-      display: none;
-    }
+.balloon{
+width:70px;
+height:90px;
+border-radius:50%;
+position:absolute;
+cursor:pointer;
+animation:float 6s linear infinite;
+}
 
-    img {
-      width: 100%;
-      border-radius: 20px;
-      margin-top: 20px;
-    }
+.balloon::after{
+content:'';
+width:2px;
+height:70px;
+background:#666;
+position:absolute;
+left:50%;
+top:90px;
+}
 
-    button {
-      margin-top: 20px;
-      background: #f43f5e;
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 999px;
-      cursor: pointer;
-    }
-  </style>
+@keyframes float{
+0%{
+transform:translateY(700px);
+}
+100%{
+transform:translateY(-900px);
+}
+}
+
+.card{
+position:absolute;
+inset:0;
+background:white;
+display:none;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+padding:20px;
+}
+
+.card img{
+width:260px;
+height:340px;
+object-fit:cover;
+border-radius:25px;
+box-shadow:0 10px 20px rgba(0,0,0,0.2);
+}
+
+.message{
+margin-top:20px;
+font-size:20px;
+color:#444;
+text-align:center;
+font-style:italic;
+}
+
+.backBtn{
+margin-top:25px;
+background:#f43f5e;
+color:white;
+border:none;
+padding:14px 28px;
+border-radius:999px;
+font-size:16px;
+cursor:pointer;
+}
+
+</style>
 </head>
 
 <body>
 
 <div class="container">
 
-  <h1 style="color:#be123c;">Happy Mother's Day 💐</h1>
+<div class="title">Happy Mother's Day 💐</div>
 
-  <div id="balloonScreen">
+<div class="subtitle">
+Tap any floating balloon for a surprise 🎈
+</div>
 
-    <p>Pop a balloon for a surprise 🎈</p>
+<!-- BALLOONS -->
 
-    <div class="balloons">
+<div class="balloon bg-pink-500"
+style="left:20px; animation-duration:7s;"
+onclick="showCard(0)">
+</div>
 
-      <div class="balloon bg-pink-500" onclick="showCard(0)"></div>
-      <div class="balloon bg-purple-500" onclick="showCard(1)"></div>
-      <div class="balloon bg-orange-500" onclick="showCard(2)"></div>
+<div class="balloon bg-purple-500"
+style="left:120px; animation-duration:6s;"
+onclick="showCard(1)">
+</div>
 
-    </div>
-  </div>
+<div class="balloon bg-orange-500"
+style="left:220px; animation-duration:8s;"
+onclick="showCard(2)">
+</div>
 
-  <div id="cardScreen" class="hidden">
+<div class="balloon bg-blue-500"
+style="left:150px; animation-duration:5s;"
+onclick="showCard(3)">
+</div>
 
-    <img id="photo" src="" />
+<!-- CARD SCREEN -->
 
-    <p id="message"></p>
+<div class="card" id="card">
 
-    <button onclick="back()">Pop Another Balloon</button>
+<img id="photo" src="" />
 
-  </div>
+<div class="message" id="message"></div>
+
+<button class="backBtn" onclick="goBack()">
+Back 🎈
+</button>
+
+</div>
 
 </div>
 
@@ -115,39 +169,42 @@
 const surprises = [
 
 {
-image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=800",
-message: "Thanks for supporting me every day ❤️"
+image:"https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=800",
+message:"Thank you for loving me endlessly ❤️"
 },
 
 {
-image: "https://images.unsplash.com/photo-1511988617509-a57c8a288659?q=80&w=800",
-message: "You are my biggest strength 💖"
+image:"https://images.unsplash.com/photo-1511988617509-a57c8a288659?q=80&w=800",
+message:"You are my biggest strength 💖"
 },
 
 {
-image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=800",
-message: "Love you forever mom 🌸"
+image:"https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=800",
+message:"Life is beautiful because of you 🌸"
+},
+
+{
+image:"https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?q=80&w=800",
+message:"Happy Mother's Day Mom 💐"
 }
 
 ];
 
-function showCard(index) {
+function showCard(index){
 
-document.getElementById("balloonScreen").classList.add("hidden");
+document.getElementById("card").style.display="flex";
 
-document.getElementById("cardScreen").classList.remove("hidden");
+document.getElementById("photo").src=
+surprises[index].image;
 
-document.getElementById("photo").src = surprises[index].image;
-
-document.getElementById("message").innerText = surprises[index].message;
+document.getElementById("message").innerText=
+surprises[index].message;
 
 }
 
-function back() {
+function goBack(){
 
-document.getElementById("cardScreen").classList.add("hidden");
-
-document.getElementById("balloonScreen").classList.remove("hidden");
+document.getElementById("card").style.display="none";
 
 }
 

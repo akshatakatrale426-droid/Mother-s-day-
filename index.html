@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8" />
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<title>Mother's Day Balloon Surprise</title>
+<title>Mother's Day 💖</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 
@@ -22,29 +25,51 @@ align-items:center;
 }
 
 .container{
-width:340px;
-height:620px;
+width:360px;
+height:690px;
 background:white;
 border-radius:35px;
-position:relative;
 overflow:hidden;
+position:relative;
 box-shadow:0 10px 30px rgba(0,0,0,0.15);
 }
 
-.title{
-text-align:center;
-padding-top:25px;
-color:#be123c;
-font-size:32px;
-font-weight:bold;
+.page{
+position:absolute;
+inset:0;
+display:none;
 }
 
-.subtitle{
+.active{
+display:flex;
+}
+
+.center{
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
 text-align:center;
-color:#e11d48;
-font-size:14px;
-padding:0 20px;
-margin-top:10px;
+padding:30px;
+}
+
+.card{
+background:white;
+padding:30px;
+border-radius:30px;
+box-shadow:0 10px 25px rgba(0,0,0,0.1);
+width:80%;
+}
+
+button{
+background:#f43f5e;
+color:white;
+border:none;
+padding:14px 26px;
+border-radius:999px;
+font-size:16px;
+margin-top:20px;
+cursor:pointer;
 }
 
 .balloon{
@@ -53,7 +78,7 @@ height:90px;
 border-radius:50%;
 position:absolute;
 cursor:pointer;
-animation:float 6s linear infinite;
+animation:float linear infinite;
 }
 
 .balloon::after{
@@ -67,98 +92,170 @@ top:90px;
 }
 
 @keyframes float{
+
 0%{
-transform:translateY(700px);
+transform:translateY(800px);
 }
+
 100%{
 transform:translateY(-900px);
 }
+
 }
 
-.card{
-position:absolute;
-inset:0;
+.photoCard{
 background:white;
-display:none;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-padding:20px;
-}
-
-.card img{
-width:260px;
-height:340px;
-object-fit:cover;
+padding:15px;
 border-radius:25px;
-box-shadow:0 10px 20px rgba(0,0,0,0.2);
+box-shadow:0 10px 20px rgba(0,0,0,0.15);
 }
 
-.message{
-margin-top:20px;
-font-size:20px;
+.photoCard img{
+width:250px;
+height:320px;
+object-fit:cover;
+border-radius:20px;
+}
+
+.letter{
+padding:35px;
+overflow-y:auto;
+line-height:1.8;
 color:#444;
-text-align:center;
-font-style:italic;
-}
-
-.backBtn{
-margin-top:25px;
-background:#f43f5e;
-color:white;
-border:none;
-padding:14px 28px;
-border-radius:999px;
-font-size:16px;
-cursor:pointer;
+font-size:17px;
 }
 
 </style>
+
 </head>
 
 <body>
 
 <div class="container">
 
-<div class="title">Happy Mother's Day 💐</div>
+<!-- PAGE 1 -->
 
-<div class="subtitle">
-Tap any floating balloon for a surprise 🎈
+<div class="page active center" id="page1">
+
+<div class="card">
+
+<h1 class="text-4xl font-bold text-rose-600">
+Hey Mummy 💖
+</h1>
+
+<p class="mt-5 text-gray-600 text-lg">
+Are you ready for a little surprise made with lots of love? ✨
+</p>
+
+<button onclick="openBalloons()">
+Yes 😍
+</button>
+
+</div>
+
+</div>
+
+<!-- PAGE 2 -->
+
+<div class="page" id="page2">
+
+<div class="absolute top-6 w-full text-center z-20">
+
+<h1 class="text-3xl font-bold text-rose-600">
+Happy Mother's Day 💐
+</h1>
+
+<p class="text-rose-400 mt-2">
+Tap any floating balloon 🎈
+</p>
+
 </div>
 
 <!-- BALLOONS -->
 
 <div class="balloon bg-pink-500"
 style="left:20px; animation-duration:7s;"
-onclick="showCard(0)">
+onclick="showPhoto(0)">
 </div>
 
 <div class="balloon bg-purple-500"
-style="left:120px; animation-duration:6s;"
-onclick="showCard(1)">
+style="left:120px; animation-duration:5s;"
+onclick="showPhoto(1)">
 </div>
 
 <div class="balloon bg-orange-500"
 style="left:220px; animation-duration:8s;"
-onclick="showCard(2)">
+onclick="showPhoto(2)">
 </div>
 
 <div class="balloon bg-blue-500"
-style="left:150px; animation-duration:5s;"
-onclick="showCard(3)">
+style="left:150px; animation-duration:6s;"
+onclick="showPhoto(3)">
 </div>
 
-<!-- CARD SCREEN -->
+</div>
 
-<div class="card" id="card">
+<!-- PHOTO PAGE -->
 
-<img id="photo" src="" />
+<div class="page center" id="photoPage">
 
-<div class="message" id="message"></div>
+<div class="photoCard">
 
-<button class="backBtn" onclick="goBack()">
-Back 🎈
+<img id="photo" src="">
+
+<p id="smallMessage"
+class="mt-5 text-gray-600 italic text-lg">
+</p>
+
+</div>
+
+<button onclick="openLetter()">
+Next 💌
 </button>
+
+</div>
+
+<!-- LETTER PAGE -->
+
+<div class="page" id="letterPage">
+
+<div class="letter">
+
+<h1 class="text-3xl text-center font-bold text-rose-600 mb-6">
+For My Lovely Mom 💖
+</h1>
+
+<p>
+
+Dear Mom,
+
+Thank you for always being my biggest strength, my comfort place, and my forever best friend.
+
+No matter how difficult life gets, your love makes everything feel better.
+
+Thank you for every sacrifice, every hug, every late-night talk, and every smile you gave me.
+
+I may not always say it enough, but I truly feel lucky every single day to have you in my life.
+
+You are the most beautiful soul I know.
+
+I hope this small surprise makes you smile because your happiness means everything to me.
+
+Happy Mother's Day Mummy 💐
+
+I love you forever ❤️
+
+</p>
+
+<div class="text-center">
+
+<button onclick="goHome()">
+Back Home 🏠
+</button>
+
+</div>
+
+</div>
 
 </div>
 
@@ -166,49 +263,81 @@ Back 🎈
 
 <script>
 
-const surprises = [
+const photos = [
 
 {
-image:"https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=800",
-message:"Thank you for loving me endlessly ❤️"
+image:"YOUR_IMAGE_LINK",
+message:"My favorite person forever ❤️"
 },
 
 {
-image:"https://images.unsplash.com/photo-1511988617509-a57c8a288659?q=80&w=800",
-message:"You are my biggest strength 💖"
+image:"YOUR_IMAGE_LINK",
+message:"Home is wherever you are 💖"
 },
 
 {
-image:"https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=800",
-message:"Life is beautiful because of you 🌸"
+image:"YOUR_IMAGE_LINK",
+message:"Thank you for everything mummy 🌸"
 },
 
 {
-image:"https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?q=80&w=800",
-message:"Happy Mother's Day Mom 💐"
+image:"YOUR_IMAGE_LINK",
+message:"Love you endlessly 💐"
 }
 
 ];
 
-function showCard(index){
+function hideAll(){
 
-document.getElementById("card").style.display="flex";
-
-document.getElementById("photo").src=
-surprises[index].image;
-
-document.getElementById("message").innerText=
-surprises[index].message;
+document.querySelectorAll('.page')
+.forEach(page=>page.classList.remove('active'));
 
 }
 
-function goBack(){
+function openBalloons(){
 
-document.getElementById("card").style.display="none";
+hideAll();
+
+document.getElementById('page2')
+.classList.add('active');
+
+}
+
+function showPhoto(index){
+
+hideAll();
+
+document.getElementById('photoPage')
+.classList.add('active');
+
+document.getElementById('photo').src=
+photos[index].image;
+
+document.getElementById('smallMessage').innerText=
+photos[index].message;
+
+}
+
+function openLetter(){
+
+hideAll();
+
+document.getElementById('letterPage')
+.classList.add('active');
+
+}
+
+function goHome(){
+
+hideAll();
+
+document.getElementById('page1')
+.classList.add('active');
 
 }
 
 </script>
 
 </body>
+
 </html>
